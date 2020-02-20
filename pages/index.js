@@ -9,7 +9,7 @@ const Index = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [coursePerPage, setCoursePerPage] = useState(2);
+  const [coursePerPage] = useState(2);
 
   useEffect(() => {
     const fetchCourse = async () => {

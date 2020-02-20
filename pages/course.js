@@ -1,57 +1,57 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
-import Layout from '../components/Layout';
+import Layout from '../components/Layout'
+import Lessons from '../components/Lessons'
+import Pagination from '../components/Pagination'
 
-export default class extends React.Component {
-  static async getInitialProps({ query }) {
-    const res = await axios.get(`https://gentle-cove-75304.herokuapp.com/courses/${query.id}`);
-    const resLes = await axios.get(`https://gentle-cove-75304.herokuapp.com/course/${query.id}/lessons`);
+const Course = ({url:query}) => {
+  const [lessons, setLessons] = useState([]);
+  const [course, setCourse] = useState([])
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lessonsPerPage] = useState(2);
+  const id = query.asPath.split('=')[1]
 
-    const arr = [];
+  useEffect(() => {
+    const fetchCourse = async () => {
+      setLoading(true)
 
-    for (let i = resLes.data.length - 1; i >= 0; i--) {
-      arr.push(resLes.data[i]);
+      const res = await axios.get(`https://gentle-cove-75304.herokuapp.com/courses/${id}`);
+      setCourse(res.data)
+      const resLes = await axios.get(`https://gentle-cove-75304.herokuapp.com/course/${id}/lessons`);
+      
+      const arr = []
+      for (let i = resLes.data.length - 1; i >= 0; i--) {
+        arr.push(resLes.data[i]);
+      }
+
+      setLessons(arr)
+      setLoading(false)
     }
 
-    return {
-      course: res.data,
-      lessons: arr,
-    };
-  }
+    fetchCourse()
+  }, [])
+  
 
-  componentDidMount() {
-    if (!sessionStorage.getItem('bpl')) sessionStorage.setItem('bpl', JSON.stringify(this.props.data));
-  }
+  const indexOfLastLesson = currentPage * lessonsPerPage;
+  const indexOfFirstLesson = indexOfLastLesson - lessonsPerPage;
+  const currentLessons = lessons.slice(indexOfFirstLesson, indexOfLastLesson);
 
-  render() {
-    const detailStyle = {
-      ul: {
-        marginTop: '100px',
-      },
-    };
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    return (
-      <Layout>
-        <div className="pure-g">
-          <div className="pure-u-8-24"></div>
-          <div className="pure-u-4-24">
-            <h2>{this.props.course.title}</h2>
-            <h3>description: {this.props.course.description}</h3>
-            <hr />
-            <br />
-            <ul>
-              {this.props.lessons.map((lesson) => (
-                <li>
-                  <h1>{lesson.title}</h1>
-                  <h3>{lesson.description}</h3>
-                  <hr />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </Layout>
-    );
-  }
+  return (
+    <Layout>
+      <div>
+        {course.title}
+        {course.description}
+      </div>
+
+      <Lessons lessons={currentLessons} loading={loading} />
+      <Pagination coursePerPage={lessonsPerPage} totalCourses={lessons.length} paginate={paginate} />
+    </Layout>
+  );
+
 }
+
+export default Course
