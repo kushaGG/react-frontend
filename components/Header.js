@@ -1,7 +1,3 @@
-const linkStyle = {
-  marginRight: 15,
-};
-
 const Header = () => (
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div id="navbarBasicExample" class="navbar-menu">
@@ -18,10 +14,12 @@ const Header = () => (
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <a class="button is-primary">
+            <a class="button is-primary" href="/register">
               <strong>Sign up</strong>
             </a>
-            <a class="button is-light">Log in</a>
+            <a class="button is-light" href="/login">
+              Log in
+            </a>
           </div>
         </div>
       </div>

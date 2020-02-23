@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import initialize from '../utils/initialize';
+import { AUTHENTICATE, DEAUTHENTICATE } from '../redux/types';
 
 import Layout from '../components/Layout';
 import Courses from '../components/Courses';
@@ -15,6 +18,7 @@ const Index = () => {
     const fetchCourse = async () => {
       setLoading(true);
       const res = await axios.get(`https://gentle-cove-75304.herokuapp.com/courses`);
+      console.log(AUTHENTICATE);
       setCourses(res.data);
       setLoading(false);
     };
@@ -35,5 +39,8 @@ const Index = () => {
     </Layout>
   );
 };
+Index.getInitialProps = function(ctx) {
+  initialize(ctx);
+};
 
-export default Index;
+export default connect((state) => state)(Index);
