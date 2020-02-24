@@ -1,5 +1,7 @@
 import Header from './Header';
 import Head from 'next/head';
+import { connect } from 'react-redux';
+import actions from '../redux/actions';
 
 const Layout = (props) => (
   <div>
@@ -15,4 +17,9 @@ const Layout = (props) => (
   </div>
 );
 
-export default Layout;
+
+const mapStateToProps = (state) => (
+  {isAuthenticated: !!state.authentication.token}
+);
+
+export default connect(mapStateToProps, actions)(Layout);

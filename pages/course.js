@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import { connect } from 'react-redux';
+import initialize from '../utils/initialize';
+
 import Layout from '../components/Layout';
 import Lessons from '../components/Lessons';
 import Pagination from '../components/Pagination';
 
-const Course = () => {
+
+const Course = (query) => {
   const [lessons, setLessons] = useState([]);
   const [course, setCourse] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [lessonsPerPage] = useState(2);
-
-  const id = window.location.href.split('=')[1];
-  console.log(id);
+  const [id] = useState(query.props.query.id)
+  
+  console.log(query)
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -54,4 +58,11 @@ const Course = () => {
   );
 };
 
-export default Course;
+Course.getInitialProps = function(ctx) {
+
+  return {
+    props: ctx
+  }
+};
+
+export default connect((state) => state)(Course);

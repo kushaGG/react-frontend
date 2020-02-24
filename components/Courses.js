@@ -1,6 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 
+import { connect } from 'react-redux';
+import initialize from '../utils/initialize';
+
 const Courses = ({ courses, loading }) => {
   if (loading) {
     return <h2>loading...</h2>;
@@ -22,4 +25,8 @@ const Courses = ({ courses, loading }) => {
   );
 };
 
-export default Courses;
+Courses.getInitialProps = function(ctx) {
+  initialize(ctx);
+};
+
+export default connect((state) => state)(Courses);

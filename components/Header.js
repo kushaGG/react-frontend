@@ -1,4 +1,8 @@
-const Header = () => (
+import Link from 'next/link';
+import { connect } from 'react-redux';
+import actions from '../redux/actions';
+
+const Header = ({ props, isAuthenticated, deauthenticate }) => (
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
@@ -14,12 +18,9 @@ const Header = () => (
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <a class="button is-primary" href="/register">
-              <strong>Sign up</strong>
-            </a>
-            <a class="button is-light" href="/login">
-              Log in
-            </a>
+            {!isAuthenticated && <Link href="/login"><a class="button is-primary">Sign In</a></Link>}
+            {!isAuthenticated && <Link href="/register"><a class="button is-light">Sign Up</a></Link>}
+            {isAuthenticated && <li onClick={deauthenticate}><a class="button is-light">Sign Out</a></li>}
           </div>
         </div>
       </div>
@@ -27,4 +28,8 @@ const Header = () => (
   </nav>
 );
 
-export default Header;
+const mapStateToProps = (state) => (
+  {isAuthenticated: !!state.authentication.auth_token}
+);
+
+export default connect(mapStateToProps, actions)(Header);
