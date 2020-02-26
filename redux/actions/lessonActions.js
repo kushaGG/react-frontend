@@ -5,10 +5,10 @@ const header = {
   'Content-Type': 'application/json',
 };
 
-const createCourse = ({ title, description, user }, type) => {
+const createLesson = ({ title, description, user, courseId }, type) => {
   console.log(user);
   return () => {
-    fetch(`https://gentle-cove-75304.herokuapp.com/courses`, {
+    fetch(`https://gentle-cove-75304.herokuapp.com/course/${courseId}/lessons`, {
       method: 'POST',
       mode: 'cors',
       credentials: 'same-origin',
@@ -20,9 +20,9 @@ const createCourse = ({ title, description, user }, type) => {
     }).then((res) => {
       res.json().then(function(data) {
         console.log(data);
-        Router.push(`/course/show?id=${data._id}`);
+        Router.push(`/course/lesson/show?id=${courseId}/${data._id}`);
       });
     });
   };
 };
-export default { createCourse };
+export default { createLesson };

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import actions from '../../redux/actions';
-import initialize from '../../utils/initialize';
+import actions from '../../../redux/actions';
+import initialize from '../../../utils/initialize';
 
-import Layout from '../../components/Layout';
+import Layout from '../../../components/Layout';
 
-class CreateCourse extends Component {
+class CreateLesson extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,6 +19,9 @@ class CreateCourse extends Component {
 
   static getInitialProps(ctx) {
     initialize(ctx);
+    return{
+        props: ctx
+    }
   }
 
   handleInputChange(e) {
@@ -29,8 +32,8 @@ class CreateCourse extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createCourse(
-      { title: this.state.title, description: this.state.description, user: this.props.authentication.auth_token },
+    this.props.createLesson(
+      { title: this.state.title, description: this.state.description, user: this.props.authentication.auth_token, courseId: this.props.props.query.id },
       'create',
     );
   }
@@ -40,7 +43,7 @@ class CreateCourse extends Component {
       <Layout>
         <div class="container" style={{ marginTop: '50px', width: '700px' }}>
           <h2 class="label" style={{ marginBottom: '40px' }}>
-            Create Course Form
+            Create Lesson Form
           </h2>
           <form onSubmit={this.handleSubmit}>
             <div class="field">
@@ -86,4 +89,4 @@ class CreateCourse extends Component {
   }
 }
 
-export default connect((state) => state, actions)(CreateCourse);
+export default connect((state) => state, actions)(CreateLesson);

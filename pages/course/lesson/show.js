@@ -8,7 +8,7 @@ import Layout from '../../../components/Layout';
 
 const Lesson = (query) => {
   const [lesson, setLesson] = useState([]);
-  const [course, setCourse] = useState('')
+  const [course, setCourse] = useState('');
   const [courseId] = useState(query.props.query.id.split('/')[0]);
   const [lessonId] = useState(query.props.query.id.split('/')[1]);
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ const Lesson = (query) => {
       setLoading(true);
       const res = await axios.get(`https://gentle-cove-75304.herokuapp.com/course/${courseId}/lesson/${lessonId}`);
       setLesson(res.data);
-      setCourse(res.data.course.title)
+      setCourse(res.data.course.title);
       setLoading(false);
     };
 
@@ -32,7 +32,7 @@ const Lesson = (query) => {
       </Layout>
     );
   }
-  
+
   return (
     <Layout>
       <div>

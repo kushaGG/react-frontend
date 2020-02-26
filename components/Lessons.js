@@ -8,6 +8,8 @@ const Lessons = ({ lessons, loading, courseId }) => {
 
   return (
     <div>
+      <hr />
+      <h1>Lessons:</h1>
       {lessons.map((lesson) => (
         <li key={lesson._id}>
           <h1>{lesson.title}</h1>
