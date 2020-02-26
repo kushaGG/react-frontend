@@ -17,14 +17,12 @@ const create = ({ title, description, user }, type) => {
         'auth-token': user,
       },
       body: JSON.stringify({ title: title, description: description }),
-    })
-      .then((res) => {
-        res.json().then(function(data) {  
-          console.log(data);  
-          Router.push(`/course/show?id=${data._id}`);
-        });
-        
+    }).then((res) => {
+      res.json().then(function(data) {
+        console.log(data);
+        Router.push(`/course/show?id=${data._id}`);
       });
+    });
   };
 };
 export default { create };

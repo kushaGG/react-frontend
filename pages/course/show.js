@@ -51,7 +51,7 @@ const Course = (query) => {
         {course.description}
       </div>
 
-      <Lessons lessons={currentLessons} loading={loading} />
+      <Lessons lessons={currentLessons} loading={loading} courseId={id} />
       <Pagination coursePerPage={lessonsPerPage} totalCourses={lessons.length} paginate={paginate} />
     </Layout>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-const Lessons = ({ lessons, loading }) => {
+const Lessons = ({ lessons, loading, courseId }) => {
   if (loading) {
     return <h2>loading...</h2>;
   }
@@ -13,7 +13,7 @@ const Lessons = ({ lessons, loading }) => {
           <h1>{lesson.title}</h1>
           <h2>{lesson.description}</h2>
           <h2>
-            <Link href={`/lesson?id=${lesson._id}`}>More...</Link>
+            <Link href={`lesson/show?id=${courseId}/${lesson._id}`}>More...</Link>
           </h2>
           <hr />
         </li>
