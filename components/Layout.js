@@ -17,9 +17,6 @@ const Layout = (props) => (
   </div>
 );
 
-
-const mapStateToProps = (state) => (
-  {isAuthenticated: !!state.authentication.token}
-);
+const mapStateToProps = (state) => ({ isAuthenticated: !!state.authentication.token });
 
 export default connect(mapStateToProps, actions)(Layout);

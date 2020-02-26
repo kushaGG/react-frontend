@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import actions from '../redux/actions';
-import initialize from '../utils/initialize';
+import actions from '../../redux/actions';
+import initialize from '../../utils/initialize';
 
-import Layout from '../components/Layout';
+import Layout from '../../components/Layout';
 
 class Register extends Component {
   constructor(props) {

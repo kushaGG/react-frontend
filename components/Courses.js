@@ -16,7 +16,7 @@ const Courses = ({ courses, loading }) => {
           <h1>{course.title}</h1>
           <h2>{course.description}</h2>
           <h2>
-            <Link href={{ pathname: '/course', query: { id: `${course._id}` } }}>More...</Link>
+            <Link href={{ pathname: '/course/show', query: { id: `${course._id}` } }}>More...</Link>
           </h2>
           <hr />
         </li>

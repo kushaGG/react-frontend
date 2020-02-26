@@ -10,6 +10,17 @@ const Header = ({ props, isAuthenticated, deauthenticate }) => (
           Home
         </a>
 
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="/course">
+            Courses
+          </a>
+          <div class="navbar-dropdown is-boxed">
+            <a class="navbar-item" href="/course/create">
+              Create
+            </a>
+          </div>
+        </div>
+
         <a class="navbar-item" href="/about">
           About
         </a>
@@ -18,9 +29,21 @@ const Header = ({ props, isAuthenticated, deauthenticate }) => (
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            {!isAuthenticated && <Link href="/login"><a class="button is-primary">Sign In</a></Link>}
-            {!isAuthenticated && <Link href="/register"><a class="button is-light">Sign Up</a></Link>}
-            {isAuthenticated && <li onClick={deauthenticate}><a class="button is-light">Sign Out</a></li>}
+            {!isAuthenticated && (
+              <Link href="/user/login">
+                <a class="button is-primary">Sign In</a>
+              </Link>
+            )}
+            {!isAuthenticated && (
+              <Link href="/user/register">
+                <a class="button is-light">Sign Up</a>
+              </Link>
+            )}
+            {isAuthenticated && (
+              <li onClick={deauthenticate}>
+                <a class="button is-light">Sign Out</a>
+              </li>
+            )}
           </div>
         </div>
       </div>
@@ -28,8 +51,6 @@ const Header = ({ props, isAuthenticated, deauthenticate }) => (
   </nav>
 );
 
-const mapStateToProps = (state) => (
-  {isAuthenticated: !!state.authentication.auth_token}
-);
+const mapStateToProps = (state) => ({ isAuthenticated: !!state.authentication.auth_token });
 
 export default connect(mapStateToProps, actions)(Header);
